@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeminiPrompts - Lite</title>
-    <!-- Tailwind CSS (Styling) -->
+    <title>My AI Prompts</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
@@ -22,75 +19,83 @@
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <div class="bg-blue-600 p-2 rounded-lg text-white"><i data-lucide="zap" width="20"></i></div>
-                <span class="text-xl font-bold text-blue-700">GeminiPrompts</span>
+                <span class="text-xl font-bold text-blue-700">MyPrompts</span>
             </div>
-            <button class="md:hidden p-2" onclick="alert('Mobile Menu')"><i data-lucide="menu"></i></button>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <div class="pt-32 pb-16 text-center px-4">
-        <span class="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold mb-4">✨ Daily Updates</span>
-        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Master Gemini AI with <br/> <span class="text-blue-600">Perfect Prompts</span></h1>
-        <p class="text-slate-500 max-w-xl mx-auto text-lg">Copy and paste the best prompts to supercharge your productivity.</p>
-    </div>
-
-    <!-- Generator Section -->
-    <div class="max-w-3xl mx-auto px-4 mb-12">
-        <div class="bg-white p-6 rounded-2xl shadow-lg border border-indigo-100">
-            <div class="flex items-center gap-2 mb-4">
-                <i data-lucide="sparkles" class="text-amber-500"></i>
-                <h2 class="font-bold text-lg">Magic Prompt Creator</h2>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <input type="text" id="topicInput" placeholder="Describe what you need (e.g., 'Learn Python basics')..." 
-                    class="flex-1 p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <button onclick="generatePrompt()" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold hover:bg-slate-800 transition">
-                    Generate
-                </button>
-            </div>
-            <div id="loading" class="hidden mt-4 text-blue-600 text-sm font-medium animate-pulse">Generating... please wait...</div>
-        </div>
+    <!-- Hero -->
+    <div class="pt-32 pb-12 text-center px-4">
+        <h1 class="text-4xl font-bold text-slate-900 mb-4">My Custom <span class="text-blue-600">Prompt Library</span></h1>
+        <p class="text-slate-500 text-lg">Browse my collection of best AI prompts with examples.</p>
     </div>
 
     <!-- Filters -->
     <div class="sticky top-16 bg-slate-50/95 py-4 z-40 border-b border-gray-200 mb-8">
-        <div class="max-w-7xl mx-auto px-4 overflow-x-auto whitespace-nowrap" id="categoryContainer">
-            <!-- Categories injected by JS -->
-        </div>
+        <div class="max-w-7xl mx-auto px-4 overflow-x-auto whitespace-nowrap" id="categoryContainer"></div>
     </div>
 
-    <!-- Prompts Grid -->
+    <!-- Grid -->
     <div class="max-w-7xl mx-auto px-4 pb-20">
-        <div id="promptsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Cards injected by JS -->
-        </div>
+        <div id="promptsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // --- DATA ---
-        const CATEGORIES = ["All", "Writing", "Coding", "Marketing", "Social", "Learning"];
+        // ---------------------------------------------------------
+        // 👇 AAPKA DATA YAHAN HAI (Yahan Edit Karein)
+        // ---------------------------------------------------------
+        
+        const CATEGORIES = ["All", "My Photos", "Writing", "Coding", "Art"];
+
         let prompts = [
-            { id: 1, title: "Blog Post Writer", cat: "Writing", text: "Write a SEO-friendly blog post about [Topic]. Include 3 headings and a conclusion.", tags: ["blog", "seo"] },
-            { id: 2, title: "Code Debugger", cat: "Coding", text: "Fix the bug in this code: [Paste Code]. Explain the solution step-by-step.", tags: ["python", "js"] },
-            { id: 3, title: "Email Subject Lines", cat: "Marketing", text: "Generate 10 catchy email subject lines for [Product] that create urgency.", tags: ["email", "sales"] },
-            { id: 4, title: "Instagram Captions", cat: "Social", text: "Create 5 fun Instagram captions for a photo about [Topic] with emojis.", tags: ["insta", "fun"] },
-            { id: 5, title: "Explain Like I'm 5", cat: "Learning", text: "Explain [Complex Topic] using simple analogies suitable for a 5-year-old.", tags: ["teach", "easy"] }
+            // 1. A photorealistic full-body mirror selfie of a stylish young man standing in a modern, upscale interior. The man has thick, wavy dark hair with a fade and a well-groomed short beard. He is holding a white iPhone up to a mirror, covering part of his face. He is wearing a fashionable streetwear outfit consisting of a vintage oversized black leather bomber jacket, a black button-down shirt unbuttoned at the top to reveal a gold chain, loose-fitting wide-leg light wash blue jeans, and chunky white sneakers. One hand is casually tucked into his pocket. The background features white marble walls, two framed modern art posters (one pink, one blue), a silver trash can, and a high-gloss black marble floor that reflects his shoes. The lighting is bright and cool, typical of a luxury fitting room or lobby.Breakdown of the details included:
+Subject: Young male, tan/olive skin, wavy textured hair (undercut style), light facial hair.
+Pose: Standing, leaning slightly back, one hand in pocket, one hand holding phone (white case) over face.
+Clothing: Black leather bomber jacket, black inner shirt, gold chain, wide-leg/baggy light blue jeans, white sneakers.
+Setting: White marble walls, black glossy marble floor, silver trash bin, framed graphical posters (pink and blue).
+            { 
+                id: 1, 
+                title: "Mirror selfie", 
+                cat: "My Photos", 
+                // Niche apni photo ka link dalein
+                image: "https://images.unsplash.com/photo-1515630278258-407f66498911?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", 
+                text: "Imagine a futuristic city with neon lights, flying cars, and rain-slicked streets. The style should be cyberpunk with high contrast and vibrant colors.", 
+                tags: ["art", "midjourney"] 
+            },
+
+            // 2. DOOSRA EXAMPLE
+            { 
+                id: 2, 
+                title: "Portrait Photography", 
+                cat: "My Photos", 
+                image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", 
+                text: "A cinematic portrait of a woman standing in a garden, soft sunlight, bokeh background, highly detailed, 85mm lens style.", 
+                tags: ["photo", "realism"] 
+            },
+
+            // 3. NORMAL TEXT PROMPT
+            { 
+                id: 3, 
+                title: "Blog Writer", 
+                cat: "Writing", 
+                image: "", // Photo nahi chahiye to khali chhodein
+                text: "Write a professional blog post about the benefits of AI in daily life. Include 3 bullet points and a conclusion.", 
+                tags: ["seo", "blog"] 
+            }
         ];
+
+        // ---------------------------------------------------------
+        // 👆 DATA KHATAM (Iske niche change mat karein)
+        // ---------------------------------------------------------
 
         let currentCat = "All";
 
-        // --- FUNCTIONS ---
-
-        // 1. Initialize
         function init() {
             renderCategories();
             renderPrompts();
-            lucide.createIcons(); // Load Icons
+            lucide.createIcons();
         }
 
-        // 2. Render Categories
         function renderCategories() {
             const container = document.getElementById('categoryContainer');
             container.innerHTML = CATEGORIES.map(cat => `
@@ -101,80 +106,59 @@
             `).join('');
         }
 
-        // 3. Render Prompt Cards
         function renderPrompts() {
             const grid = document.getElementById('promptsGrid');
             const filtered = currentCat === "All" ? prompts : prompts.filter(p => p.cat === currentCat);
             
             grid.innerHTML = filtered.map(p => `
-                <div class="prompt-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all flex flex-col h-full">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wide">${p.cat}</span>
+                <div class="prompt-card bg-white p-4 rounded-2xl border border-gray-100 shadow-sm transition-all flex flex-col h-full">
+                    
+                    <!-- PHOTO LOGIC: Agar image hai tabhi dikhayega -->
+                    ${p.image ? `
+                    <div class="mb-4 overflow-hidden rounded-xl border border-gray-100">
+                        <img src="${p.image}" alt="${p.title}" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-500">
                     </div>
-                    <h3 class="text-lg font-bold text-slate-800 mb-3">${p.title}</h3>
-                    <div class="bg-slate-50 p-4 rounded-xl text-sm font-mono text-slate-600 mb-4 flex-grow border border-slate-100">
+                    ` : ''}
+
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-lg text-xs font-bold uppercase">${p.cat}</span>
+                    </div>
+                    
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">${p.title}</h3>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl text-sm font-mono text-slate-600 mb-4 flex-grow border border-slate-100 overflow-y-auto max-h-32">
                         ${p.text}
                     </div>
+
                     <button onclick="copyText('${p.text.replace(/'/g, "\\'")}', this)" 
-                        class="w-full py-2 rounded-lg bg-slate-100 text-slate-700 font-medium hover:bg-blue-600 hover:text-white transition-colors flex items-center justify-center gap-2">
+                        class="w-full py-2.5 rounded-lg bg-slate-900 text-white font-medium hover:bg-blue-600 transition-colors flex items-center justify-center gap-2 shadow-sm active:scale-95">
                         <i data-lucide="copy" width="16"></i> Copy Prompt
                     </button>
                 </div>
             `).join('');
             
-            lucide.createIcons(); // Refresh icons for new elements
+            lucide.createIcons();
         }
 
-        // 4. Filter Logic
         function filter(cat) {
             currentCat = cat;
             renderCategories();
             renderPrompts();
         }
 
-        // 5. Copy Logic
         function copyText(text, btn) {
             navigator.clipboard.writeText(text);
             const originalHTML = btn.innerHTML;
             btn.innerHTML = `<i data-lucide="check" width="16"></i> Copied!`;
-            btn.classList.add("bg-green-100", "text-green-700");
+            btn.classList.add("bg-green-600");
             setTimeout(() => {
                 btn.innerHTML = originalHTML;
-                btn.classList.remove("bg-green-100", "text-green-700");
+                btn.classList.remove("bg-green-600");
                 lucide.createIcons();
             }, 2000);
         }
 
-        // 6. Mock Generator Logic
-        function generatePrompt() {
-            const input = document.getElementById('topicInput');
-            const loading = document.getElementById('loading');
-            
-            if(!input.value) return alert("Please enter a topic!");
-            
-            loading.classList.remove('hidden');
-            
-            // Mock AI Delay
-            setTimeout(() => {
-                const newPrompt = {
-                    id: Date.now(),
-                    title: "AI: " + input.value,
-                    cat: "All",
-                    text: `Here is a detailed, professional prompt about ${input.value} generated by AI. It includes context, specific instructions, and desired output format.`,
-                    tags: ["ai", "gen"]
-                };
-                
-                prompts.unshift(newPrompt); // Add to top
-                renderPrompts();
-                loading.classList.add('hidden');
-                input.value = "";
-                alert("New Prompt Added!");
-            }, 1500);
-        }
-
-        // Run Init
         window.onload = init;
-
     </script>
 </body>
 </html>
