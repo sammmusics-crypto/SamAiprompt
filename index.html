@@ -1,54 +1,183 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeminiPrompts - AI Prompt Library</title>
-    
-    <!-- Tailwind CSS -->
+    <title>GeminiPrompts - Lite</title>
+    <!-- Tailwind CSS (Styling) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .mask-gradient { mask-image: linear-gradient(to right, black 85%, transparent 100%); }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .prompt-card:hover { transform: translateY(-4px); }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="text-slate-900">
 
-    <div id="root"></div>
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white/90 backdrop-blur border-b border-gray-200 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 p-2 rounded-lg text-white"><i data-lucide="zap" width="20"></i></div>
+                <span class="text-xl font-bold text-blue-700">GeminiPrompts</span>
+            </div>
+            <button class="md:hidden p-2" onclick="alert('Mobile Menu')"><i data-lucide="menu"></i></button>
+        </div>
+    </header>
 
-    <script type="text/babel">
-        // --- API CONFIGURATION ---
-        // Agar aapke paas API key hai, toh yahan quotes ke andar daalein
-        const apiKey = ""; 
+    <!-- Hero Section -->
+    <div class="pt-32 pb-16 text-center px-4">
+        <span class="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold mb-4">✨ Daily Updates</span>
+        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Master Gemini AI with <br/> <span class="text-blue-600">Perfect Prompts</span></h1>
+        <p class="text-slate-500 max-w-xl mx-auto text-lg">Copy and paste the best prompts to supercharge your productivity.</p>
+    </div>
 
-        // --- ICONS (SVG Components) ---
-        const Icons = {
-            Zap: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>,
-            Search: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>,
-            Menu: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>,
-            X: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>,
-            Copy: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>,
-            Check: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="20 6 9 17 4 12"></polyline></svg>,
-            Heart: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>,
-            Sparkles: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>,
-            Code: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>,
-            PenTool: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m12 19 7-7 3 3-7 7-3-3z"></path><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="m2 2 7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>,
-            Monitor: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>,
-            Hash: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg>,
-            Loader: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>,
-            Plus: ({size=24, className}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" y1="5" x2="12" y2="19
+    <!-- Generator Section -->
+    <div class="max-w-3xl mx-auto px-4 mb-12">
+        <div class="bg-white p-6 rounded-2xl shadow-lg border border-indigo-100">
+            <div class="flex items-center gap-2 mb-4">
+                <i data-lucide="sparkles" class="text-amber-500"></i>
+                <h2 class="font-bold text-lg">Magic Prompt Creator</h2>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input type="text" id="topicInput" placeholder="Describe what you need (e.g., 'Learn Python basics')..." 
+                    class="flex-1 p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button onclick="generatePrompt()" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold hover:bg-slate-800 transition">
+                    Generate
+                </button>
+            </div>
+            <div id="loading" class="hidden mt-4 text-blue-600 text-sm font-medium animate-pulse">Generating... please wait...</div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="sticky top-16 bg-slate-50/95 py-4 z-40 border-b border-gray-200 mb-8">
+        <div class="max-w-7xl mx-auto px-4 overflow-x-auto whitespace-nowrap" id="categoryContainer">
+            <!-- Categories injected by JS -->
+        </div>
+    </div>
+
+    <!-- Prompts Grid -->
+    <div class="max-w-7xl mx-auto px-4 pb-20">
+        <div id="promptsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cards injected by JS -->
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- DATA ---
+        const CATEGORIES = ["All", "Writing", "Coding", "Marketing", "Social", "Learning"];
+        let prompts = [
+            { id: 1, title: "Blog Post Writer", cat: "Writing", text: "Write a SEO-friendly blog post about [Topic]. Include 3 headings and a conclusion.", tags: ["blog", "seo"] },
+            { id: 2, title: "Code Debugger", cat: "Coding", text: "Fix the bug in this code: [Paste Code]. Explain the solution step-by-step.", tags: ["python", "js"] },
+            { id: 3, title: "Email Subject Lines", cat: "Marketing", text: "Generate 10 catchy email subject lines for [Product] that create urgency.", tags: ["email", "sales"] },
+            { id: 4, title: "Instagram Captions", cat: "Social", text: "Create 5 fun Instagram captions for a photo about [Topic] with emojis.", tags: ["insta", "fun"] },
+            { id: 5, title: "Explain Like I'm 5", cat: "Learning", text: "Explain [Complex Topic] using simple analogies suitable for a 5-year-old.", tags: ["teach", "easy"] }
+        ];
+
+        let currentCat = "All";
+
+        // --- FUNCTIONS ---
+
+        // 1. Initialize
+        function init() {
+            renderCategories();
+            renderPrompts();
+            lucide.createIcons(); // Load Icons
+        }
+
+        // 2. Render Categories
+        function renderCategories() {
+            const container = document.getElementById('categoryContainer');
+            container.innerHTML = CATEGORIES.map(cat => `
+                <button onclick="filter('${cat}')" 
+                    class="px-5 py-2 rounded-full text-sm font-bold mr-2 transition-all ${currentCat === cat ? 'bg-slate-900 text-white' : 'bg-white border border-gray-300 text-slate-600'}">
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        // 3. Render Prompt Cards
+        function renderPrompts() {
+            const grid = document.getElementById('promptsGrid');
+            const filtered = currentCat === "All" ? prompts : prompts.filter(p => p.cat === currentCat);
+            
+            grid.innerHTML = filtered.map(p => `
+                <div class="prompt-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all flex flex-col h-full">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wide">${p.cat}</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-3">${p.title}</h3>
+                    <div class="bg-slate-50 p-4 rounded-xl text-sm font-mono text-slate-600 mb-4 flex-grow border border-slate-100">
+                        ${p.text}
+                    </div>
+                    <button onclick="copyText('${p.text.replace(/'/g, "\\'")}', this)" 
+                        class="w-full py-2 rounded-lg bg-slate-100 text-slate-700 font-medium hover:bg-blue-600 hover:text-white transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="copy" width="16"></i> Copy Prompt
+                    </button>
+                </div>
+            `).join('');
+            
+            lucide.createIcons(); // Refresh icons for new elements
+        }
+
+        // 4. Filter Logic
+        function filter(cat) {
+            currentCat = cat;
+            renderCategories();
+            renderPrompts();
+        }
+
+        // 5. Copy Logic
+        function copyText(text, btn) {
+            navigator.clipboard.writeText(text);
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = `<i data-lucide="check" width="16"></i> Copied!`;
+            btn.classList.add("bg-green-100", "text-green-700");
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.classList.remove("bg-green-100", "text-green-700");
+                lucide.createIcons();
+            }, 2000);
+        }
+
+        // 6. Mock Generator Logic
+        function generatePrompt() {
+            const input = document.getElementById('topicInput');
+            const loading = document.getElementById('loading');
+            
+            if(!input.value) return alert("Please enter a topic!");
+            
+            loading.classList.remove('hidden');
+            
+            // Mock AI Delay
+            setTimeout(() => {
+                const newPrompt = {
+                    id: Date.now(),
+                    title: "AI: " + input.value,
+                    cat: "All",
+                    text: `Here is a detailed, professional prompt about ${input.value} generated by AI. It includes context, specific instructions, and desired output format.`,
+                    tags: ["ai", "gen"]
+                };
+                
+                prompts.unshift(newPrompt); // Add to top
+                renderPrompts();
+                loading.classList.add('hidden');
+                input.value = "";
+                alert("New Prompt Added!");
+            }, 1500);
+        }
+
+        // Run Init
+        window.onload = init;
+
+    </script>
+</body>
+</html>
 
 
